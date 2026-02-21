@@ -5,6 +5,9 @@ import java.util.Locale;
 
 public class AvgDurationFunction implements SleepAnalysisFunction {
 
+    private static final String MESSAGE = "Средняя продолжительность сессии (мин)";
+    private static final String NO_DATA = "нет данных";
+
     @Override
     public SleepAnalysisResult analyze(List<SleepingSession> sessions) {
         String result = sessions.stream()
@@ -13,11 +16,8 @@ public class AvgDurationFunction implements SleepAnalysisFunction {
                 .stream()
                 .mapToObj(avg -> String.format(Locale.US, "%.1f", avg))
                 .findFirst()
-                .orElse("нет данных");
+                .orElse(NO_DATA);
 
-        return new SleepAnalysisResult(
-                "Средняя продолжительность сессии (мин)",
-                result
-        );
+        return new SleepAnalysisResult(MESSAGE, result);
     }
 }

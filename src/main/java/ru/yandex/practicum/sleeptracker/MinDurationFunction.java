@@ -4,6 +4,9 @@ import java.util.List;
 
 public class MinDurationFunction implements SleepAnalysisFunction {
 
+    private static final String MESSAGE = "Минимальная продолжительность сессии (мин)";
+    private static final String NO_DATA = "нет данных";
+
     @Override
     public SleepAnalysisResult analyze(List<SleepingSession> sessions) {
         String result = sessions.stream()
@@ -12,11 +15,8 @@ public class MinDurationFunction implements SleepAnalysisFunction {
                 .stream()
                 .mapToObj(String::valueOf)
                 .findFirst()
-                .orElse("нет данных");
+                .orElse(NO_DATA);
 
-        return new SleepAnalysisResult(
-                "Минимальная продолжительность сессии (мин)",
-                result
-        );
+        return new SleepAnalysisResult(MESSAGE, result);
     }
 }
